@@ -1,0 +1,27 @@
+{
+    "name": "zeahinsuranceplatform",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server/server.js",
+        "server": "nodemon server/server.js",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GuyEMathieu/ZeahInsuranceplatform.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/GuyEMathieu/ZeahInsuranceplatform/issues"
+    },
+    "homepage": "https://github.com/GuyEMathieu/ZeahInsuranceplatform#readme",
+    "devDependencies": {
+        "concurrently": "^7.0.0",
+        "nodemon": "^2.0.15"
+    }
+}
