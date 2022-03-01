@@ -1,0 +1,1 @@
+export const GENDERS = [{"_id": "1", "name": "Male"}, {"_id": "2", "name": "Female"}]

@@ -1,10 +1,28 @@
 import './App.css';
+import {
+    BrowserRouter as Router, Routes, Route
+} from 'react-router-dom'
+
+import CustomerMain from './customers/CustomerMain'
+import CustomerProfile from './customers/CustomerProfile'
+
+import { lightTheme } from './themes/lightTheme';
+import { ThemeProvider } from '@mui/material/styles';
+
+import CustomerState from './context/customer/CustomerState';
+
 
 function App() {
     return (
-        <div className="App">
-
-        </div>
+        <ThemeProvider theme={lightTheme}>
+            <CustomerState>
+                <Router>
+                    <Routes>
+                        <Route path='/' element={<CustomerMain  />} />
+                    </Routes>
+                </Router>
+            </CustomerState>
+        </ThemeProvider>
     );
 }
 
