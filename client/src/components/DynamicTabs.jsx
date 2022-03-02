@@ -19,7 +19,7 @@ export default function DynamicTabs({parents, children}) {
     }, [parents, value])
 
     return (
-        <Box sx={{ width: '100%', typography: 'body1', m: 1, p: 0  }}>
+        <Box sx={{ width: '100%', typography: 'body1', m: 1  }}>
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
