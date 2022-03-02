@@ -3,8 +3,7 @@ import { v4 as uid } from 'uuid';
 import * as ActionTypes from '../Actions'
 import customerReducer from './customerReducer';
 
-import { CUSTOMERS } from '../../data/customers';
-import { GENDERS } from '../../data/defaults';
+import { generateCustomers} from '../../data/customers';
 
 
 
@@ -47,14 +46,3 @@ const CustomerState = props => {
 }
 
 export default CustomerState
-
-
-const generateCustomers = () =>{
-    let customers = [];
-
-    CUSTOMERS.forEach(element => {
-        customers.push({...element, gender: (GENDERS.find(g => g.name === element.gender))._id, _id: uid()})
-    });
-
-    return customers;
-}

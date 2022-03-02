@@ -5,11 +5,11 @@ import {
 
 export default function PersonalGlance  ({data}) {
 
-  const [glance, setGlance] = useState({
-    firstName: '', lastName: '',
-    dateOfBirth: '', gender: '',
-    email: '', phone: ''
-  })
+    const [glance, setGlance] = useState({
+        firstName: '', lastName: '',
+        dateOfBirth: '', gender: '',
+        email: '', phone: ''
+    })
 
     useEffect(() => {
         if(data){

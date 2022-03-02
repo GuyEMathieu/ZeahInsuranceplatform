@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom'
 
 import CustomerMain from './customers/CustomerMain'
+import CustomerSearch from './customers/CustomerSearch'
 import CustomerProfile from './customers/CustomerProfile'
 
 import { lightTheme } from './themes/lightTheme';

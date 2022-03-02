@@ -1,3 +1,6 @@
+import { v4 as uid } from 'uuid';
+import {GENDERS} from './defaults'
+
 export const CUSTOMERS = [{
   "_id": 1,
   "first_name": "Antone",
@@ -399,3 +402,13 @@ export const CUSTOMERS = [{
   "phone": "785-114-9561",
   "dateOfBirth": "05/07/1990"
 }]
+
+export const generateCustomers = () =>{
+    let customers = [];
+
+    CUSTOMERS.forEach(element => {
+        customers.push({...element, gender: (GENDERS.find(g => g.name === element.gender))._id, _id: uid()})
+    });
+
+    return customers;
+}
