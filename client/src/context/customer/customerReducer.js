@@ -7,6 +7,15 @@ export default (state, action) => {
             return {
                 ...state,
             }
+        case ActionTypes.FILTER_CUSTOMERS:
+            let found;
+            if(action.payload.first_name){
+                found = state.customers.filter(c => c.first_name === action.payload.first_name)
+            }
+            return {
+                ...state,
+                filteredCustomers: found
+            }
         case ActionTypes.GENERATE_CUSTOMERS:
             return {
                 ...state,

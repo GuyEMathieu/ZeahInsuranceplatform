@@ -17,9 +17,10 @@ function App() {
     return (
         <ThemeProvider theme={lightTheme}>
             <CustomerState>
+                {/* <MainContainer> */}
                 <Router>
                     <Routes>
-                        <Route path='/' element={<CustomerMain  />} />
+                        <Route path='/' element={<CustomerSearch  />} />
                     </Routes>
                 </Router>
             </CustomerState>

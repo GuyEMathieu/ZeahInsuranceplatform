@@ -14,10 +14,10 @@ export const CustomerContext = createContext();
 const CustomerState = props => {
     const initialState = {
         customers: generateCustomers(),
+        filteredCustomers: null
     }
 
     const [state, dispatch] = useReducer(customerReducer, initialState)
-
     const getCustomers = async () => {
         try {
 
@@ -33,12 +33,27 @@ const CustomerState = props => {
         }
     }
 
+    const searchCustomers = async criteria => {
+        try{
+            dispatch({
+                type: ActionTypes.FILTER_CUSTOMERS,
+                payload: criteria
+            })
+        } catch(err){
+
+        }
+    }
+
+
+
     return (
         <CustomerContext.Provider
             value= {{
                 customers: state.customers,
+                filteredCustomers: state.filteredCustomers,
 
-                getCustomers
+                getCustomers,
+                searchCustomers
             }}>
                 {props.children}
         </CustomerContext.Provider>
