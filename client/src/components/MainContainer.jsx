@@ -6,6 +6,8 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     
     ({ theme, open }) => ({
         flexGrow: 1,
+        height: '95vh',
+        maxHeight: '100vh',
         backgroundColor: theme.palette.background.page,
         padding: theme.spacing(1),
         transition: theme.transitions.create('margin', {

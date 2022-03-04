@@ -21,6 +21,11 @@ export default (state, action) => {
                 ...state,
                 customers: action.payload
             }
+        case ActionTypes.RESET:
+            return {
+                ...state,
+                filteredCustomers: null
+            }
         default:
             return state;
     }

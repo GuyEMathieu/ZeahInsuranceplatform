@@ -4,8 +4,8 @@ import {
 } from 'react-router-dom'
 
 import CustomerMain from './customers/CustomerMain'
-import CustomerSearch from './customers/CustomerSearch'
-import CustomerProfile from './customers/CustomerProfile'
+// import CustomerSearch from './customers/CustomerSearch'
+// import CustomerProfile from './customers/CustomerProfile'
 
 import { lightTheme } from './themes/lightTheme';
 import { ThemeProvider } from '@mui/material/styles';
@@ -20,7 +20,7 @@ function App() {
                 {/* <MainContainer> */}
                 <Router>
                     <Routes>
-                        <Route path='/' element={<CustomerSearch  />} />
+                        <Route path='/' element={<CustomerMain />} />
                     </Routes>
                 </Router>
             </CustomerState>

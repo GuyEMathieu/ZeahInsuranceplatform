@@ -19,17 +19,25 @@ export default function DynamicTabs({parents, children}) {
     }, [parents, value])
 
     return (
-        <Box sx={{ width: '100%', typography: 'body1', m: 1  }}>
+        <Box sx={{ width: '100%', typography: 'body1', m: 1, }}>
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
                         {parents.map(ele => (
                             <Tab label={ele.label} key={ele.label} value={ele.label}  />
                         ))}
+                        {children?.map(ele => (
+                            <Tab label={ele.label} key={ele.label} value={ele.label} />
+                        ))}
                     </TabList>
                 </Box>
                 {parents.map(ele => (
-                    <TabPanel key={ele.label} value={ele.label}>
+                    <TabPanel key={ele.label} value={ele.label} sx={{p: 0, pr: 1}} >
+                        {ele.child()}
+                    </TabPanel>
+                ))}
+                {children?.map(ele => (
+                    <TabPanel key={ele.label} value={ele.label} sx={{p: 0, pr: 1}}>
                         {ele.child()}
                     </TabPanel>
                 ))}

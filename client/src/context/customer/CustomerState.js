@@ -20,7 +20,6 @@ const CustomerState = props => {
     const [state, dispatch] = useReducer(customerReducer, initialState)
     const getCustomers = async () => {
         try {
-
             if(this.initialState.customers === null){
                 
             }else{
@@ -40,8 +39,11 @@ const CustomerState = props => {
                 payload: criteria
             })
         } catch(err){
-
         }
+    }
+
+    const resetCustomers = () => {
+        dispatch({type: ActionTypes.RESET})
     }
 
 
@@ -53,7 +55,8 @@ const CustomerState = props => {
                 filteredCustomers: state.filteredCustomers,
 
                 getCustomers,
-                searchCustomers
+                searchCustomers,
+                resetCustomers
             }}>
                 {props.children}
         </CustomerContext.Provider>

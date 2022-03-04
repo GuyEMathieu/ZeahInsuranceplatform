@@ -14,13 +14,12 @@ import {
     Typography, Button, Stack, MenuItem, 
 } from '@mui/material'
 
-import {styled} from '@mui/material/styles'
 
 import { useCustomer } from '../hooks/CustomHooks';
 import { stringifyAddress } from '../utils/formatter';
 
 
-export default function CustomerSearch(){
+export default function CustomerSearch({createCustomerTab}){
     const [searchParams, setSearchParams] = useState(null)
     const handleSearchParams = e => {
         const {name, value} = e.target;
@@ -32,7 +31,11 @@ export default function CustomerSearch(){
         })
     }
 
-    const {customers, filteredCustomers, getCustomers, searchCustomers} = useCustomer();
+    const {
+        customers, filteredCustomers, getCustomers, 
+        searchCustomers, resetCustomers
+    } = useCustomer();
+
     useEffect(() => {
         if(!customers){
             getCustomers()
@@ -45,6 +48,10 @@ export default function CustomerSearch(){
             || searchParams?.city || searchParams?.state || searchParams?.zipcode ){
             return false
         }
+
+        if(filteredCustomers){
+            resetCustomers()
+        }
         return true;
     }
 
@@ -53,6 +60,8 @@ export default function CustomerSearch(){
         console.table(searchParams)
     }
 
+    
+    
     return (
         <MainContainer>
         <Paper sx={{m: 0, pl: 0, pr: 0, py: 0}}>  
@@ -156,7 +165,7 @@ export default function CustomerSearch(){
                                 </Grid>
 
                                 <Grid item sm={12}>
-                                    <StickyHeadTable customers={filteredCustomers}/>
+                                    <StickyHeadTable customers={filteredCustomers} handleSelection={createCustomerTab}/>
                                 </Grid>
                             </Grid>
                         : null
@@ -171,7 +180,7 @@ export default function CustomerSearch(){
 
 
 
-function StickyHeadTable({customers}) {
+function StickyHeadTable({customers, handleSelection}) {
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -201,7 +210,7 @@ function StickyHeadTable({customers}) {
                 {customers?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((customer, i) => {
                     return (
-                    <TableRow hover tabIndex={-1} key={customer._id}>
+                    <TableRow hover tabIndex={-1} key={customer._id} onClick={() => handleSelection(customer)}>
                         <TableCell>{i + 1}</TableCell>
                         <TableCell>{`${customer.first_name} ${customer.last_name}`}</TableCell>
                         <TableCell>{stringifyAddress(customer.address)}</TableCell>
