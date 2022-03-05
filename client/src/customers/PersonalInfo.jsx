@@ -47,9 +47,9 @@ const PersonalInfo = ({profile, disabled}) => {
                     value={profile?.gender || ''}
                     select disabled={disabled}
                 >
-                    <MenuItem disabled>Select State</MenuItem>
-                    {defaults?.states?.map(state => (
-                        <MenuItem key={state._id} value={state._id}>{state.name}</MenuItem>
+                    <MenuItem disabled>Select Gender</MenuItem>
+                    {defaults?.genders?.map(gender => (
+                        <MenuItem key={gender._id} value={gender._id}>{gender.name}</MenuItem>
                     ))}
                 </TextField>
             </Grid>
@@ -75,7 +75,7 @@ const PersonalInfo = ({profile, disabled}) => {
                 />
             </Grid>
 
-            {/* <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
                 <TextField
                     label='Driver State' name='dlState'
                     value={profile?.driverLicense?.dlState || ''}
@@ -93,7 +93,7 @@ const PersonalInfo = ({profile, disabled}) => {
                     label='Driver Number' name='dlNumber'
                     value={profile?.driverLicense?.dlNumber} disabled={disabled}
                 />
-            </Grid> */}
+            </Grid>
         </Grid>
     )
 }

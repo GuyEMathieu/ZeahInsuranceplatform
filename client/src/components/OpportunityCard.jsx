@@ -65,7 +65,7 @@ export default function OpportunityCard({line, handleSelection}) {
                     sx={{
                         ":focus":false,
                         color: isSelected === true 
-                            ? theme.palette.text.primary 
+                            ? "white" 
                             : theme.palette.text.boldBlue
                         }} 
                     variant='h3' align='center'

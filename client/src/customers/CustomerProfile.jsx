@@ -8,7 +8,8 @@ import {useCustomer} from '../hooks/CustomHooks'
 
 import MainContainer from '../components/MainContainer';
 import AccordionShell from '../components/AccordionShell';
-import PersonalInfo from '../components/PersonalInfo';
+import PersonalInfo from './PersonalInfo';
+import Address from './Address';
 
 const Title = styled(Typography)(({theme}) => ({
     color: theme.palette.text.boldBlue
@@ -37,9 +38,8 @@ export default function CustomerProfile() {
     return (
         <MainContainer>
             <Paper>
-                <Title>Customer Profile</Title>
-                <Stack spacing={1}>
-                    <Box  sx={{display: 'flex', justifyContent:'flex-end'}}>
+                <Box  sx={{p: 1, mb: 1, display: 'flex', justifyContent:'flex-end'}}>
+                        <Title sx={{flexGrow: 1}}>Customer Profile</Title>
                         {isDisabled
                             ?   <Button 
                                     onClick={() => setDisabled(false)}
@@ -50,12 +50,14 @@ export default function CustomerProfile() {
                             :   null
                         }
                     </Box>
+                <Stack spacing={1}>
+                    
                     <AccordionShell title={'Personal Info'} isExpanded>
                         <PersonalInfo profile={profile} disabled={isDisabled} />
                     </AccordionShell>
 
                     <AccordionShell title={'Address'} >
-                        <PersonalInfo profile={profile} disabled={isDisabled} />
+                        <Address address={profile?.address} disabled={isDisabled} />
                     </AccordionShell>
                 </Stack>
 
