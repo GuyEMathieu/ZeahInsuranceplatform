@@ -9,9 +9,11 @@ export default (state, action) => {
             }
         case ActionTypes.FILTER_CUSTOMERS:
             let found;
-            if(action.payload.first_name){
+            if(action.payload.first_name && !action.payload.last_name){
                 found = state.customers.filter(c => c.first_name === action.payload.first_name)
-            }
+            } else if(!action.payload.first_name && action.payload.last_name){
+                found = state.customers.filter(c => c.last_name === action.payload.last_name)
+            } 
             return {
                 ...state,
                 filteredCustomers: found

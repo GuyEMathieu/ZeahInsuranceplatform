@@ -30,8 +30,6 @@ function CustomerMain() {
         if(children.find(c => c.label !== child.label)){
             setChildren([...children || [], child])
         }
-
-        
     }
 
     return (

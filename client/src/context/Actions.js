@@ -2,3 +2,5 @@ export const GET_CUSTOMERS = 'GET_CUSTOMERS';
 export const GENERATE_CUSTOMERS = 'GENERATE_CUSTOMERS';
 export const FILTER_CUSTOMERS = 'FILTER_CUSTOMERS';
 export const RESET = 'RESET'
+
+export const GET_DEFAULTS = 'GET_DEFAULTS'

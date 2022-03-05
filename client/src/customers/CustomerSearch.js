@@ -7,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
+import { useNavigate } from 'react-router-dom';
+
 import MainContainer from '../components/MainContainer';
 
 import {
@@ -14,12 +16,12 @@ import {
     Typography, Button, Stack, MenuItem, 
 } from '@mui/material'
 
-
 import { useCustomer } from '../hooks/CustomHooks';
 import { stringifyAddress } from '../utils/formatter';
 
+export default function CustomerSearch(){
+    const navigate = useNavigate();
 
-export default function CustomerSearch({createCustomerTab}){
     const [searchParams, setSearchParams] = useState(null)
     const handleSearchParams = e => {
         const {name, value} = e.target;
@@ -60,125 +62,119 @@ export default function CustomerSearch({createCustomerTab}){
         console.table(searchParams)
     }
 
-    
-    
+    const handleSelection = customer => {
+        navigate(`/customers/profile/${customer._id}`)
+    }
+
     return (
         <MainContainer>
-        <Paper sx={{m: 0, pl: 0, pr: 0, py: 0}}>  
-            <Stack sx={{backgroundColor: "#C9CBCE", p: 1.5, borderTop:'6px solid #00A3E1'}}> 
-                <Typography>Customer Search</Typography>
-            </Stack> 
-            
-            <Stack sx={{m: 2}}>
-                <Grid container spacing={2} >
-                    
-                    <Grid item sm={12} md={6}>
-                        <TextField 
-                            label = 'Policy #' name='policyNumber'
-                            value={searchParams?.policyNumber}
-                            onChange={handleSearchParams} />
-                    </Grid>
-                    
-                    <Grid item sm={12} md={6} />
+            <Paper sx={{m: 0, pl: 0, pr: 0, py: 0}}>  
+                <Stack sx={{backgroundColor: "#C9CBCE", p: 1.5, borderTop:'6px solid #00A3E1'}}> 
+                    <Typography>Customer Search</Typography>
+                </Stack> 
+                
+                <Stack sx={{m: 2}}>
+                    <Grid container spacing={2} >
+                        
+                        <Grid item sm={12} md={6}>
+                            <TextField 
+                                label = 'Policy #' name='policyNumber'
+                                value={searchParams?.policyNumber}
+                                onChange={handleSearchParams} />
+                        </Grid>
+                        
+                        <Grid item sm={12} md={6} />
 
-                    <Grid item sm={12}>
-                        <Typography><strong>Or</strong></Typography>
-                    </Grid>
+                        <Grid item sm={12}>
+                            <Typography><strong>Or</strong></Typography>
+                        </Grid>
 
-                    <Grid item sm={12} md={6}>
-                        <TextField 
-                            label = 'First Name' name='first_name'
-                            value={searchParams?.first_name}
-                            onChange={handleSearchParams} />
-                    </Grid>
-                    <Grid item sm={12} md={6}>
-                        <TextField 
-                            label = 'Last Name' name='last_name'
-                            value={searchParams?.last_name} 
-                            onChange={handleSearchParams} />
-                    </Grid>
-                    <Grid item sm={12} md={6}>
-                        <TextField 
-                            label = 'Address' name='streetAddress'
-                            value={searchParams?.streetAddress}
-                            onChange={handleSearchParams} />
-                    </Grid>
+                        <Grid item sm={12} md={6}>
+                            <TextField 
+                                label = 'First Name' name='first_name'
+                                value={searchParams?.first_name}
+                                onChange={handleSearchParams} />
+                        </Grid>
+                        <Grid item sm={12} md={6}>
+                            <TextField 
+                                label = 'Last Name' name='last_name'
+                                value={searchParams?.last_name} 
+                                onChange={handleSearchParams} />
+                        </Grid>
+                        <Grid item sm={12} md={6}>
+                            <TextField 
+                                label = 'Address' name='streetAddress'
+                                value={searchParams?.streetAddress}
+                                onChange={handleSearchParams} />
+                        </Grid>
 
-                    <Grid item sm={12} md={3}>
-                        <TextField 
-                            label = 'State' name='state'
-                            value={searchParams?.state} select
-                            onChange={handleSearchParams}>
-                                <MenuItem>Select State</MenuItem>
-                        </TextField>
-                    </Grid>
+                        <Grid item sm={12} md={3}>
+                            <TextField 
+                                label = 'State' name='state'
+                                value={searchParams?.state} select
+                                onChange={handleSearchParams}>
+                                    <MenuItem>Select State</MenuItem>
+                            </TextField>
+                        </Grid>
 
-                    <Grid item sm={12} md={3}>
-                        <TextField 
-                            label = 'Zipcode' name='zipcode'
-                            value={searchParams?.zipcode}
-                            onChange={handleSearchParams} />
-                    </Grid>
+                        <Grid item sm={12} md={3}>
+                            <TextField 
+                                label = 'Zipcode' name='zipcode'
+                                value={searchParams?.zipcode}
+                                onChange={handleSearchParams} />
+                        </Grid>
 
-                    <Grid item sm={12} md={6}>
-                        <TextField 
-                            label ='Phone Number' name='phone'
-                            value={searchParams?.phone}
-                            onChange={handleSearchParams} />
-                    </Grid>
+                        <Grid item sm={12} md={6}>
+                            <TextField 
+                                label ='Phone Number' name='phone'
+                                value={searchParams?.phone}
+                                onChange={handleSearchParams} />
+                        </Grid>
 
-                    <Grid item sm={12} md={6}>
-                        <TextField 
-                            label = 'Email' name='email'
-                            value={searchParams?.email} 
-                            onChange={handleSearchParams}/>
-                    </Grid>
+                        <Grid item sm={12} md={6}>
+                            <TextField 
+                                label = 'Email' name='email'
+                                value={searchParams?.email} 
+                                onChange={handleSearchParams}/>
+                        </Grid>
 
-                    
+                        
 
-                    <Grid item sm={12} container sx={{mt: 2}}>
-                        <Stack direction={'row'} spacing={2}>
-                            <Button 
-                                onClick={handleSearch}
-                                disabled={activateUpdateBtn()}
-                                fullWidth={false} >
-                                Search
-                            </Button>
+                        <Grid item sm={12} container sx={{mt: 2}}>
+                            <Stack direction={'row'} spacing={2}>
+                                <Button 
+                                    onClick={handleSearch}
+                                    disabled={activateUpdateBtn()}
+                                    fullWidth={false} >
+                                    Search
+                                </Button>
+                            </Stack>
+                        </Grid>
 
-                            {/* <Button 
-                                fullWidth={false} 
-                                variant={'outlined'}>
-                                Cancel
-                            </Button> */}
-                        </Stack>
-                    </Grid>
+                        {filteredCustomers 
+                            ?   <Grid item sm={12} container sx={{mt: 3}}>
+                                    <Grid item sm={12}>
+                                        <Typography><strong>Search Results</strong></Typography>
+                                        <Divider />
+                                    </Grid>
 
-                    {filteredCustomers 
-                        ?   <Grid item sm={12} container sx={{mt: 3}}>
-                                <Grid item sm={12}>
-                                    <Typography><strong>Search Results</strong></Typography>
-                                    <Divider />
+                                    <Grid item sm={12} sx={{pt: 3, pb: 2}}>
+                                        <Typography>Click on a name to view policies and claims</Typography>
+                                    </Grid>
+
+                                    <Grid item sm={12}>
+                                        <StickyHeadTable customers={filteredCustomers} handleSelection={handleSelection}/>
+                                    </Grid>
                                 </Grid>
+                            : null
+                        }
 
-                                <Grid item sm={12} sx={{pt: 3, pb: 2}}>
-                                    <Typography>Click on a name to view policies and claims</Typography>
-                                </Grid>
-
-                                <Grid item sm={12}>
-                                    <StickyHeadTable customers={filteredCustomers} handleSelection={createCustomerTab}/>
-                                </Grid>
-                            </Grid>
-                        : null
-                    }
-
-                </Grid>
-            </Stack>
-        </Paper>
+                    </Grid>
+                </Stack>
+            </Paper>
         </MainContainer>
     )
 }
-
-
 
 function StickyHeadTable({customers, handleSelection}) {
 

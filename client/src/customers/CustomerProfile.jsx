@@ -1,11 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Grid
+    Paper, Stack, Box, Button, Typography
 } from '@mui/material'
+import {styled, useTheme} from '@mui/material/styles'
+import { useParams } from 'react-router-dom';
 import {useCustomer} from '../hooks/CustomHooks'
-import PersonalGlance from '../components/PersonalGlance'
+
+import MainContainer from '../components/MainContainer';
+import AccordionShell from '../components/AccordionShell';
+import PersonalInfo from '../components/PersonalInfo';
+
+const Title = styled(Typography)(({theme}) => ({
+    color: theme.palette.text.boldBlue
+}))
 
 export default function CustomerProfile() {
+    const theme = useTheme();
+    const {id} = useParams();
+
     const {customers, getCustomers} = useCustomer();
 
     const [profile, setProfile] = useState(null)
@@ -13,22 +25,64 @@ export default function CustomerProfile() {
     useEffect(() => {
         if(!customers){
             getCustomers()
-        } else {
-            setProfile(customers[2])
-        }
-    },[customers, getCustomers])
+        } 
 
+        if(customers && id){
+            setProfile(customers.find(c => c._id === `${id}`))
+        }
+    },[customers, getCustomers, id])
+
+    const [isDisabled, setDisabled] = useState(true)
     
     return (
-        <Grid container spacing={2} sx={{m: 1}}>
-            <Grid item xs={4} sx={{display: {xs: 'none', sm: 'none', md: 'none', lg: 'block'}}}>
-                <PersonalGlance sx={{p: 2}} data={profile}/>
-            </Grid>
+        <MainContainer>
+            <Paper>
+                <Title>Customer Profile</Title>
+                <Stack spacing={1}>
+                    <Box  sx={{display: 'flex', justifyContent:'flex-end'}}>
+                        {isDisabled
+                            ?   <Button 
+                                    onClick={() => setDisabled(false)}
+                                    fullWidth={false} 
+                                    variant='outlined'>
+                                    Edit
+                                </Button>
+                            :   null
+                        }
+                    </Box>
+                    <AccordionShell title={'Personal Info'} isExpanded>
+                        <PersonalInfo profile={profile} disabled={isDisabled} />
+                    </AccordionShell>
 
-            <Grid item xs >
+                    <AccordionShell title={'Address'} >
+                        <PersonalInfo profile={profile} disabled={isDisabled} />
+                    </AccordionShell>
+                </Stack>
 
-            </Grid>
-        </Grid>
+                {!isDisabled 
+                    ?   <Stack direction='row' sx={{py: 2}} spacing={2}>
+                            <Button 
+                                size='large'
+                                onClick={() => setDisabled(false)}
+                                fullWidth={false} variant='outlined'
+                                sx={{
+                                    ':hover': {border: 'none',
+                                        backgroundColor: theme.palette.button.orangeHover
+                                    },
+                                    backgroundColor: theme.palette.button.orange, 
+                                    border: 'none', color: 'white'}}
+                                >
+                                    Update
+                            </Button>
+                            <Button 
+                                onClick={() => setDisabled(true)}
+                                fullWidth={false} variant='text'>
+                                    Cancel
+                            </Button>
+                        </Stack>
+                    : null
+                }
+            </Paper>
+        </MainContainer>
     )
 }
-

@@ -8,15 +8,25 @@ export const lightTheme = createTheme({
     //     mode: 'dark',
         background: {
             //default: "#F3F3F3",
-            page: "#F3F3F3",
-            paper: "#ffffff"
+            page: "#f3f3f3",
+            sidebar: '#254B6E',
+            boldBlue: "#1B3F60",
+            paperHeader: "#c9cbce"
         },
     //     primary: {
     //         main: "#E2DBDB"
     //     },
-    //     text: {
-    //         primary: '#EEE7E7'
-    //     }
+        text: {
+            primary: '#050505',
+            black: '#EEE7E7',
+            boldBlue: "#1B3F60",
+            
+        },
+        button: {
+            orange: "#FC9905",
+            orangeHover: "#FAB027",
+        }
+        
     },
 
     components: {
@@ -89,8 +99,8 @@ export const lightTheme = createTheme({
                 root: {
                     padding: 10,
                     overflow: 'hidden',
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
+                    // borderTopLeftRadius: 10,
+                    // borderTopRightRadius: 10,
                 }
             }
         },

@@ -46,8 +46,6 @@ const CustomerState = props => {
         dispatch({type: ActionTypes.RESET})
     }
 
-
-
     return (
         <CustomerContext.Provider
             value= {{
