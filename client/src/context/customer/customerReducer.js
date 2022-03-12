@@ -23,6 +23,12 @@ export default (state, action) => {
                 ...state,
                 customers: action.payload
             }
+        case ActionTypes.UPDATE_CUSTOMER:
+            console.info(action.payload)
+            return {
+                ...state,
+                customers: state.customers.map(customer => customer._id === action.payload._id ? action.payload : customer)
+            }
         case ActionTypes.RESET:
             return {
                 ...state,

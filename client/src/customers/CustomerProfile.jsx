@@ -18,8 +18,9 @@ const Title = styled(Typography)(({theme}) => ({
 export default function CustomerProfile() {
     const theme = useTheme();
     const {id} = useParams();
+    console.info(typeof(id))
 
-    const {customers, getCustomers} = useCustomer();
+    const {customers, getCustomers, updateCustomer} = useCustomer();
 
     const [profile, setProfile] = useState(null)
 
@@ -29,62 +30,104 @@ export default function CustomerProfile() {
         } 
 
         if(customers && id){
-            setProfile(customers.find(c => c._id === `${id}`))
+            setProfile(customers.find(c => c._id === +id))
         }
+
     },[customers, getCustomers, id])
 
-    const [isDisabled, setDisabled] = useState(true)
+    const [isDisabled, setDisabled] = useState(true);
+
+    const [temp, setTemp] = useState(null)
+
+    const handleChange = e => {
+        const {name, value} = e.target;
+        
+        if(name === 'first_name' || name === 'middleName' || name === 'last_name'
+            || name === 'gender' || name === 'dateOfBirth' || name === 'email'
+            || name === 'phone'
+        ){
+            setProfile({...profile, [name]: value})
+        } else if(name === 'dlState' || name === 'dlNumber'){
+            setProfile({
+                ...profile, 
+                driverLicense: {
+                    ...profile.driverLicense,
+                    [name]: value
+                }
+            })
+        } else if(name === 'streetAddress' || name === 'aptNum' || name === 'city'
+            || name === 'state' || name === 'zipcode'){
+            setProfile({...profile, address: {...profile.address, [name]: value}})
+        }
+    }
+
+    const onEditable = () => {
+        setDisabled(false)
+        setTemp(profile)
+    }
+
+    const onCancel = () => {
+        setDisabled(true)
+        setProfile(temp)
+        setTemp(null)
+    }
+
+    const onSave = () =>{
+        updateCustomer(profile)
+        setDisabled(true)
+        setTemp(null)
+    }
+
+    console.table(`${profile}`)
     
     return (
-        <MainContainer>
-            <Paper>
-                <Box  sx={{p: 1, mb: 1, display: 'flex', justifyContent:'flex-end'}}>
-                        <Title sx={{flexGrow: 1}}>Customer Profile</Title>
-                        {isDisabled
-                            ?   <Button 
-                                    onClick={() => setDisabled(false)}
-                                    fullWidth={false} 
-                                    variant='outlined'>
-                                    Edit
-                                </Button>
-                            :   null
-                        }
-                    </Box>
-                <Stack spacing={1}>
-                    
-                    <AccordionShell title={'Personal Info'} isExpanded>
-                        <PersonalInfo profile={profile} disabled={isDisabled} />
-                    </AccordionShell>
-
-                    <AccordionShell title={'Address'} >
-                        <Address address={profile?.address} disabled={isDisabled} />
-                    </AccordionShell>
-                </Stack>
-
-                {!isDisabled 
-                    ?   <Stack direction='row' sx={{py: 2}} spacing={2}>
-                            <Button 
-                                size='large'
-                                onClick={() => setDisabled(false)}
-                                fullWidth={false} variant='outlined'
-                                sx={{
-                                    ':hover': {border: 'none',
-                                        backgroundColor: theme.palette.button.orangeHover
-                                    },
-                                    backgroundColor: theme.palette.button.orange, 
-                                    border: 'none', color: 'white'}}
-                                >
-                                    Update
+        <Paper>
+            <Box  sx={{p: 1, mb: 1, display: 'flex', justifyContent:'flex-end'}}>
+                    <Title sx={{flexGrow: 1}}>Customer Profile</Title>
+                    {isDisabled
+                        ?   <Button 
+                                onClick={onEditable}
+                                fullWidth={false} 
+                                variant='outlined'>
+                                Edit
                             </Button>
-                            <Button 
-                                onClick={() => setDisabled(true)}
-                                fullWidth={false} variant='text'>
-                                    Cancel
-                            </Button>
-                        </Stack>
-                    : null
-                }
-            </Paper>
-        </MainContainer>
+                        :   null
+                    }
+                </Box>
+            <Stack spacing={1}>
+                
+                <AccordionShell title={'Personal Info'} isExpanded>
+                    <PersonalInfo profile={profile} disabled={isDisabled} handleChange={handleChange} />
+                </AccordionShell>
+
+                <AccordionShell title={'Address'} >
+                    <Address address={profile?.address} disabled={isDisabled} handleChange={handleChange}  />
+                </AccordionShell>
+            </Stack>
+
+            {!isDisabled 
+                ?   <Stack direction='row' sx={{py: 2}} spacing={2}>
+                        <Button 
+                            size='large'
+                            onClick={onSave}
+                            fullWidth={false} variant='outlined'
+                            sx={{
+                                ':hover': {border: 'none',
+                                    backgroundColor: theme.palette.button.orangeHover
+                                },
+                                backgroundColor: theme.palette.button.orange, 
+                                border: 'none', color: 'white'}}
+                            >
+                                Update
+                        </Button>
+                        <Button 
+                            onClick={onCancel}
+                            fullWidth={false} variant='text'>
+                                Cancel
+                        </Button>
+                    </Stack>
+                : null
+            }
+        </Paper>
     )
 }

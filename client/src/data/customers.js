@@ -973,10 +973,6 @@ export const CUSTOMERS = [{
 }]
 
 
-
-
-
-
 export const generateCustomers = () =>{
     let customers = [];
 
@@ -991,7 +987,6 @@ export const generateCustomers = () =>{
     CUSTOMERS.forEach(element => {
         customers.push({
             ...element, 
-            _id: uid(),
             driverLicense: {
               ...element.driverLicense,
               dlState: getState(element.driverLicense.dlState)

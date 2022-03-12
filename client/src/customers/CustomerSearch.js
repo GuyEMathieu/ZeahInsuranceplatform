@@ -63,7 +63,7 @@ export default function CustomerSearch(){
     }
 
     const handleSelection = customer => {
-        navigate(`/customers/profile/${customer._id}`)
+        navigate(`/customers/${customer._id}/profile`)
     }
 
     return (

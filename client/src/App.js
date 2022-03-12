@@ -4,9 +4,9 @@ import {
 } from 'react-router-dom'
 
 import CustomerSearch from './customers/CustomerSearch';
-import CustomerProfile from './customers/CustomerProfile'
-import Opportunity  from './quoting/Opportunity';
-
+import CustomerMain from './customers/CustomerMain'
+import Opportunity  from './customers/Opportunity';
+import NewProspect from './NewProspect';
 
 
 import { lightTheme } from './themes/lightTheme';
@@ -25,7 +25,7 @@ function App() {
                     <Router>
                         <Routes>
                             <Route path='/' element={<CustomerSearch />} />
-                            <Route path='/customers/profile/:id' element={<CustomerProfile />} />
+                            <Route path='/customers/:id/profile' element={<CustomerMain />} />
                             <Route path='/quotes' element={<Opportunity />} />
                         </Routes>
                     </Router>

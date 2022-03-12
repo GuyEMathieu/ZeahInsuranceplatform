@@ -1,6 +1,10 @@
 import {createContext, useReducer} from 'react';
 import {v4 as uid} from 'uuid';
-import { GENDERS, STATES } from '../../data/defaults';
+import { 
+    GENDERS, STATES, MARITALSTATUS, 
+    OWNERSHIP, SUFFIXES, OCCUPATIONS,
+    RESIDENCE_YEARS
+} from '../../data/defaults';
 import * as ActionTypes from '../Actions'
 import defaultReducer from './defaultReducer';
 
@@ -10,7 +14,12 @@ const DefaultState = props => {
     const initialState = {
         defaults: {
             states: STATES,
-            genders: GENDERS
+            genders: GENDERS,
+            maritalStatuses : MARITALSTATUS,
+            ownerships: OWNERSHIP,
+            suffixes: SUFFIXES,
+            occupations: OCCUPATIONS, 
+            residenceYears: RESIDENCE_YEARS
         }
     }
 
@@ -21,7 +30,12 @@ const DefaultState = props => {
             type: ActionTypes.GET_DEFAULTS,
             payload: {
                 states: STATES,
-                genders: GENDERS
+                genders: GENDERS,
+                maritalStatuses : MARITALSTATUS,
+                ownerships: OWNERSHIP,
+                suffixes: SUFFIXES,
+                occupations: OCCUPATIONS,
+                residenceYears: RESIDENCE_YEARS
             }
         })
     }

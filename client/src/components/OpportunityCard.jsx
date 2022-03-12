@@ -14,15 +14,13 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import SentimentSatisfiedRoundedIcon from '@mui/icons-material/SentimentSatisfiedRounded';
 import DirectionsBoatFilledRoundedIcon from '@mui/icons-material/DirectionsBoatFilledRounded';
 
-export default function OpportunityCard({line, handleSelection}) {
+export default function OpportunityCard({lineName, handleSelection, selected}) {
     const theme = useTheme();
-    const {lineName, isSelected = false} = line;
-
 
     const style = {
         color: theme.palette.background.boldBlue,
         py: 'auto',
-        fontSize: 150,
+        fontSize: 50,
         pb: 1
     }
 
@@ -44,31 +42,29 @@ export default function OpportunityCard({line, handleSelection}) {
                 return null;
         }
     }
-    console.info(`${lineName} selected: ${isSelected}`)
     return (
         <Card sx={{
-            maxWidth: 300,
             borderRadius: 10,
-            backgroundColor: isSelected ? theme.palette.background.sidebar : null
+            backgroundColor: selected === lineName ? theme.palette.background.sidebar : "#E0DBDB"
         }}>
             <CardContent sx={{justifyContent: 'center'}} onClick={() => handleSelection(lineName)}>
                 <Avatar 
                     sx={{
-                        backgroundColor: isSelected === true ? theme.palette.text.primary : null,  
-                        width: 150, height: 150, mb: 5, 
+                        backgroundColor: selected === lineName ? theme.palette.text.primary : null,  
+                        width: 50, height: 50, mb: 5, 
                         mx: 'auto', borderRadius: '50%', px: 'auto'}}
                 >
-                    {isSelected ? <CheckRoundedIcon style={style} /> : getIcon()}
+                    {selected === lineName ? <CheckRoundedIcon style={style} /> : getIcon()}
                 </Avatar>
                 
                 <Typography 
                     sx={{
                         ":focus":false,
-                        color: isSelected === true 
+                        color: selected === lineName 
                             ? "white" 
                             : theme.palette.text.boldBlue
                         }} 
-                    variant='h3' align='center'
+                    variant='h4' align='center'
                 >
                     {lineName}
                 </Typography>

@@ -2,12 +2,13 @@ import React from 'react';
 import {
     Grid, TextField, MenuItem
 } from '@mui/material'
+import DatePicker from '@mui/lab/DatePicker';
 
 import { useEffect } from 'react';
 
 import { useDefault } from '../hooks/CustomHooks';
 
-const PersonalInfo = ({profile, disabled}) => {
+const PersonalInfo = ({profile, disabled, handleChange}) => {
     const {defaults, getDefaults} = useDefault();
 
     useEffect(() => {
@@ -16,11 +17,20 @@ const PersonalInfo = ({profile, disabled}) => {
         }
     },[defaults, getDefaults])
 
+    const handleDateChange = date => {
+        const e = {target: {
+            name: 'dateOfBirth',
+            value: date
+        }}
+
+        handleChange(e)
+    }
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} md={(profile?.middleName || !disabled) ? 5.5 : 6}>
                 <TextField
-                    label='First Name' name='first_name'
+                    label='First Name' name='first_name'  onChange={handleChange}
                     value={profile?.first_name} disabled={disabled}
                 />
             </Grid>
@@ -28,7 +38,7 @@ const PersonalInfo = ({profile, disabled}) => {
             {(!disabled || profile?.middleName) && 
                 <Grid item xs={12} md={1}>
                     <TextField
-                        label='M.I.' name='middleName'
+                        label='M.I.' name='middleName' onChange={handleChange}
                         value={profile?.middleName} disabled={disabled}
                     />
                 </Grid>
@@ -36,14 +46,14 @@ const PersonalInfo = ({profile, disabled}) => {
 
             <Grid item xs={12} md={(profile?.middleName || !disabled) ? 5.5 : 6}>
                 <TextField
-                    label='Last Name' name='last_name'
+                    label='Last Name' name='last_name' onChange={handleChange}
                     value={profile?.last_name} disabled={disabled}
                 />
             </Grid>
 
             <Grid item xs={12} md={6}>
                 <TextField
-                    label='Gender' name='gender'
+                    label='Gender' name='gender' onChange={handleChange}
                     value={profile?.gender || ''}
                     select disabled={disabled}
                 >
@@ -55,9 +65,12 @@ const PersonalInfo = ({profile, disabled}) => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-                <TextField
-                    label='Date of Birth' name='dateOfBirth'
-                    value={profile?.dateOfBirth} disabled={disabled}
+                <DatePicker
+                    label="Date of Birth"
+                    inputFormat="MM/dd/yyyy"
+                    value={profile?.dateOfBirth}
+                    onChange={date => handleDateChange(date)}
+                    renderInput={(params) => <TextField {...params} />}
                 />
             </Grid>
 
@@ -65,6 +78,7 @@ const PersonalInfo = ({profile, disabled}) => {
                 <TextField
                     label='Email' name='email'
                     value={profile?.email} disabled={disabled}
+                    onChange={handleChange}
                 />
             </Grid>
 
@@ -72,6 +86,7 @@ const PersonalInfo = ({profile, disabled}) => {
                 <TextField
                     label='Phone' name='phone'
                     value={profile?.phone} disabled={disabled}
+                    onChange={handleChange}
                 />
             </Grid>
 
@@ -79,6 +94,7 @@ const PersonalInfo = ({profile, disabled}) => {
                 <TextField
                     label='Driver State' name='dlState'
                     value={profile?.driverLicense?.dlState || ''}
+                    onChange={handleChange}
                     select disabled={disabled}
                 >
                     <MenuItem disabled>Select State</MenuItem>
@@ -90,6 +106,7 @@ const PersonalInfo = ({profile, disabled}) => {
 
             <Grid item xs={12} md={6}>
                 <TextField
+                    onChange={handleChange}
                     label='Driver Number' name='dlNumber'
                     value={profile?.driverLicense?.dlNumber} disabled={disabled}
                 />

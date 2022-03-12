@@ -41,6 +41,15 @@ const CustomerState = props => {
         } catch(err){
         }
     }
+    const updateCustomer = async customer => {
+        try{
+            dispatch({
+                type: ActionTypes.UPDATE_CUSTOMER,
+                payload: customer
+            })
+        } catch(err){
+        }
+    }
 
     const resetCustomers = () => {
         dispatch({type: ActionTypes.RESET})
@@ -54,6 +63,7 @@ const CustomerState = props => {
 
                 getCustomers,
                 searchCustomers,
+                updateCustomer,
                 resetCustomers
             }}>
                 {props.children}

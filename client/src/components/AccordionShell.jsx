@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import { useTheme } from '@mui/material/styles';
-import Accordion from '@mui/material/Accordion';
+import {Accordion, Button} from '@mui/material';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export default function AccordionShell(props) {
+import ExpandLess from '@mui/icons-material/ExpandLess';
+export default function AccordionShell({isExpanded = false, title, children}) {
     const theme = useTheme();
-    const [expanded, setExpanded] = useState(props.isExpanded)
+    const [expanded, setExpanded] = useState(isExpanded)
     return (
         <Accordion expanded={expanded}>
             <AccordionSummary
@@ -21,12 +22,20 @@ export default function AccordionShell(props) {
                 <Typography 
                     sx={{py: 0, color: theme.palette.text.boldBlue}}
                 >
-                    {props.title}
+                    {title}
                 </Typography>
             </AccordionSummary>
 
             <AccordionDetails sx={{py: 2, px:1}}>
-                {props.children}
+                {children}
+
+                <Button sx={{ml: 1}} 
+                    onClick={() => setExpanded(false)}
+                    fullWidth={false} 
+                    startIcon={<ExpandLess  />} 
+                    variant={'text'}>
+                        Collapse
+                </Button>
             </AccordionDetails>
         </Accordion>
     );
